@@ -43,6 +43,59 @@ namespace ConsoleApplication2
                 } while (Int32.TryParse(sDictMenu, out iDictMenu) == false);
                 iDictMenu = Convert.ToInt32(sDictMenu);
             } while (iDictMenu <= 1 || iDictMenu >= 7);
+            Console.WriteLine(iDictMenu);
+            
+            if(iDictMenu == 1){
+                Console.Write("Please input the key: ");
+                sDictKey = Console.ReadLine();
+                Console.Write("Please input the value: ");
+                sDictValue = Console.ReadLine();
+                iDictValue = Convert.ToInt32(sDictValue);
+
+                dictDictionary.Add(sDictKey, iDictValue);
+            }
+            else if (iDictMenu == 2)
+            {
+                dictDictionary.Clear();
+                int i = 1;
+                while (i <= 2000)
+                {
+                    sDictKey = "New Entry" + i;
+                    dictDictionary.Add(sDictKey, i);
+                    i++;
+                }
+            }
+            else if (iDictMenu == 3)
+            {
+                foreach (var input in dictDictionary)
+                {
+                    Console.WriteLine(input.Key.PadRight(25, ' ') + input.Value);
+                }
+            }
+            else if (iDictMenu == 4)
+            {
+                Console.Write("What do you wanna delete: ");
+                string sDictSearch = Console.ReadLine();
+                if(dictDictionary.ContainsKey(sDictSearch) == true){
+                    dictDictionary.Remove(sDictSearch);
+                }
+                else if (dictDictionary.ContainsKey(sDictSearch) == false)
+                {
+                    Console.WriteLine("The requested key does not exist!");
+                }
+            }
+            else if (iDictMenu == 5)
+            {
+                dictDictionary.Clear();
+            }
+            else if (iDictMenu == 6)
+            {
+                Console.Write("What are you looking for: ");
+
+            }
+
+            Console.ReadLine();
+
         }
     }
 }
