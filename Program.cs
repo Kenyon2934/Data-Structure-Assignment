@@ -10,12 +10,15 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
+            //declare varibles
             Boolean again;
             Boolean again2 = true;
             int iNum;
             string sNum;
             Stack<String> staSta = new Stack<string>();
+            Stack<String> staSta2 = new Stack<string>();
 
+            //Loop until user wants to exit
             while (again2 == true)
             {
                 Console.WriteLine("Enter your Option\n");
@@ -34,8 +37,10 @@ namespace ConsoleApplication2
 
                 iNum = Int32.Parse(sNum);
 
+                //for stack
                 if (iNum == 1)
                 {
+                    //loop until the user wants to exit
                     while (again = true)
                     {
                         Console.WriteLine("Enter your Option\n");
@@ -58,7 +63,7 @@ namespace ConsoleApplication2
                         again = true;
                         iNum = Int32.Parse(sNum);
 
-
+                        //for add
                         if (iNum == 1)
                         {
                             Console.WriteLine("What do you want to add?\n");
@@ -66,20 +71,22 @@ namespace ConsoleApplication2
                             Console.WriteLine("Added Successful\n");
                         }
 
+                        //to add 2000 entries 
                         else if (iNum == 2)
                         {
                             staSta.Clear();
                             int counter = 1;
 
-                            while (staSta.Count() <= 2000)
+                            while (counter<= 2000)
                             {
                                 staSta.Push("New Entry" + counter);
                                 counter++;
                             }
 
-                            Console.WriteLine("Stack cleared\n");
+                            
                         }
-
+            
+                       //display all items
                         else if (iNum == 3)
                         {
                             foreach (string item in staSta)
@@ -90,46 +97,72 @@ namespace ConsoleApplication2
                             Console.WriteLine("\n");
                         }
 
+                            //delete a specific item
                         else if (iNum == 4)
                         {
-                            foreach (string item in staSta)
-                            {
-                                Console.WriteLine("What do you want to Delete?");
-                                sNum = Console.ReadLine();
 
-                                if (staSta.Peek().Equals(sNum))
+
+                            Console.WriteLine("What do you want to Delete?");
+                            sNum = Console.ReadLine();
+                           
+                            if (staSta.Contains(sNum))
+                            {
+                                foreach (string item in staSta)
                                 {
-                                    staSta.Pop();
-                                    Console.WriteLine("Item Deleted");
+
+                                    if (staSta.Peek() != sNum)
+                                    {
+                                        //holds items that user does not want to delte
+                                        staSta2.Push(staSta.Pop());
+                                    }
+
+                                    else
+                                    {
+                                        //deletes the item
+                                        staSta.Pop();
+                                        Console.WriteLine("Item Deleted");
+
+                                    }
                                 }
 
-                                else
+                               
+                                int iCounter = staSta2.Count();
+                               
+                                //gives the item back to the orginal stack
+                                for (int iCount = 0; iCount < iCounter; iCount++)
                                 {
-                                    Console.WriteLine("Item not found");
+                                    staSta.Push(staSta2.Pop());
                                 }
                             }
-                        }
 
+                            else
+                            {
+                                Console.WriteLine("Item Not Found");
+                            }
+                        }
+                        
+                        
+                        //clears stack
                         else if (iNum == 5)
                         {
                             staSta.Clear();
+                            Console.WriteLine("Stack cleared\n");
 
                         }
-
+                        
+                        //searchs stack
                         else if (iNum == 6)
                         {
-                            foreach (string item in staSta)
-                            {
                                 System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                                 Console.WriteLine("What do you want to search for?");
                                 sNum = Console.ReadLine();
 
                                 sw.Start();
-                                if (staSta.Peek().Equals(sNum))
+                                if (staSta.Contains(sNum))
                                 {
                                     sw.Stop();
                                     Console.WriteLine("Found It! Time to find: " + sw.Elapsed);
-                                    sw.Stop();
+                                    sw.Reset();
                                 }
 
                                 else
@@ -137,9 +170,6 @@ namespace ConsoleApplication2
                                     Console.WriteLine("Not found");
                                     sw.Reset();
                                 }
-
-
-                            }
                         }
 
                         else
