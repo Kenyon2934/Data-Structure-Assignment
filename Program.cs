@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -95,6 +95,7 @@ namespace Group_Data_Structure
                         bFirstTime = true;
                         iStaMenu = subMenu(iGenMenu);
 
+                        //adds item to stack
                         if (iStaMenu == 1)
                         {
                             Console.WriteLine("What do you want to add?\n");
@@ -102,20 +103,25 @@ namespace Group_Data_Structure
                             Console.WriteLine("Added Successful\n");
                         }
 
+                            //add 2000 entries to the stack
                         else if (iStaMenu == 2)
                         {
                             staSta.Clear();
                             int counter = 1;
 
-                            while (staSta.Count() <= 2000)
+                            Console.WriteLine("Stack cleared\n");
+
+                            while (staSta.Count() < 2000)
                             {
                                 staSta.Push("New Entry" + counter);
                                 counter++;
                             }
 
-                            Console.WriteLine("Stack cleared\n");
+                            Console.WriteLine("2000 new entries have been added");
+
                         }
 
+                            //displays the stack
                         else if (iStaMenu == 3)
                         {
                             foreach (string item in staSta)
@@ -126,54 +132,66 @@ namespace Group_Data_Structure
                             Console.WriteLine("\n");
                         }
 
+                        ///Delete specific item from stack
                         else if (iStaMenu == 4)
                         {
-                            foreach (string item in staSta)
+                            string input;
+                            Console.Write("Which item do you want to delete?\n");
+                            input = Console.ReadLine();
+                            Stack<string> tempStack = new Stack<string>(); //Temporary stack to move non-deleted items to
+                            if (staSta.Contains(input))
                             {
-                                Console.WriteLine("What do you want to Delete?");
-                                sStaValue = Console.ReadLine();
-
-                                if (staSta.Peek().Equals(sStaValue))
+                                while (staSta.Count > 0)
                                 {
-                                    staSta.Pop();
-                                    Console.WriteLine("Item Deleted");
+                                    string currentItem = staSta.Pop().ToString(); //Remove and look at the first item in the stack
+                                    if (currentItem != input)
+                                    {
+                                        tempStack.Push(currentItem); //Don't delete it, add to the temporary stack   
+                                    }
+                                    else
+                                    {
+                                        //Do nothing, this is the one to delete
+                                    }
                                 }
-
-                                else
+                                while (tempStack.Count > 0)
                                 {
-                                    Console.WriteLine("Item not found");
+                                    staSta.Push(tempStack.Pop()); //Add back the items in the temporary stack to the original queue
                                 }
+                                Console.WriteLine("Item Deleted!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Item not found"); //Report that the item to delete isn't in the stack
                             }
                         }
 
+                            //clears stack
                         else if (iStaMenu == 5)
                         {
                             staSta.Clear();
 
                         }
 
+                            //searchs stack for specific item
                         else if (iStaMenu == 6)
                         {
-                            foreach (string item in staSta)
+                            string input;
+                            Console.Write("Enter Search field: ");
+                            input = Console.ReadLine();
+                            //Start the timer
+                            sw.Start();
+                            if (staSta.Contains(input))
                             {
-                                Console.WriteLine("What do you want to search for?");
-                                sStaValue = Console.ReadLine();
-
-                                sw.Start();
-                                if (staSta.Peek().Equals(sStaValue))
-                                {
-                                    sw.Stop();
-                                    Console.WriteLine("Found It! Time to find: " + sw.Elapsed);
-                                    sw.Stop();
-                                }
-
-                                else
-                                {
-                                    Console.WriteLine("Not found");
-                                    sw.Reset();
-                                }
-
-
+                                //Stop the timer
+                                sw.Stop();
+                                Console.WriteLine("Found It! Time to find: " + sw.Elapsed);
+                                //Reset the timer
+                                sw.Reset();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not found");
+                                sw.Reset();
                             }
                         }
 
@@ -232,7 +250,7 @@ namespace Group_Data_Structure
                                     {
                                         tempQueue.Enqueue(currentItem); //Don't delete it, add to the temporary queue   
                                     }
-                                    else 
+                                    else
                                     {
                                         //Do nothing, this is the one to delete
                                     }
@@ -413,3 +431,4 @@ namespace Group_Data_Structure
         }
     }
 }
+
