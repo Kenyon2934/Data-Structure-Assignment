@@ -201,7 +201,7 @@ namespace Group_Data_Structure
                         {
                             qItems.Clear(); //Clear the queue
                             int counter = 1;
-                            while (qItems.Count() <= 2000)
+                            while (qItems.Count() < 2000)
                             {
                                 qItems.Enqueue("New Entry" + counter); //Add item to the queue
                                 counter++; //count how many entries have been made
