@@ -222,7 +222,31 @@ namespace Group_Data_Structure
                             string input = "";
                             Console.Write("Which item do you want to delete?");
                             input = Console.ReadLine();
-
+                            Queue<string> tempQueue = new Queue<string>(); //Temporary queue to move non-deleted items to
+                            if (qItems.Contains(input))
+                            {
+                                while (qItems.Count > 0)
+                                {
+                                    string currentItem = qItems.Dequeue().ToString(); //Remove and look at the first item in the queue
+                                    if (currentItem != input)
+                                    {
+                                        tempQueue.Enqueue(currentItem); //Don't delete it, add to the temporary queue   
+                                    }
+                                    else 
+                                    {
+                                        //Do nothing, this is the one to delete
+                                    }
+                                }
+                                while (tempQueue.Count > 0)
+                                {
+                                    qItems.Enqueue(tempQueue.Dequeue()); //Add back the items in the temporary queue to the original queue
+                                }
+                                Console.WriteLine("Item Deleted!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Item not found"); //Report that the item to delete isn't in the queue
+                            }
                         }
 
                         else if (iQMenu == 5)
