@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace Group_Data_Structure
                     {
                         Console.WriteLine("Please Enter a number between 1-7"); //instructional error message.
                     } //this is the menu.
-                    Console.WriteLine("Enter your Options\n");
+                    Console.WriteLine("Enter your Selection\n");
                     Console.WriteLine("1. Add one item to " + sMainMenu);
                     Console.WriteLine("2. Add Huge List of Items to " + sMainMenu);
                     Console.WriteLine("3. Display " + sMainMenu);
@@ -319,7 +320,7 @@ namespace Group_Data_Structure
                                 }
                             } while (Int32.TryParse(sDictValue, out iDictValue) == false);
                             iDictValue = Convert.ToInt32(sDictValue);  //converts from string to integer for dictionary value. 
-                            Console.Write("Do you wanna make sure the key is upper case? (Y/N): ");
+                            Console.Write("Do you want to make sure the key is upper case? (Y/N): ");
                             sYNAnswer = Console.ReadLine();
                             sYNAnswer = sYNAnswer.Substring(0, 1);
                             sYNAnswer = UppercaseFirst(sYNAnswer);
