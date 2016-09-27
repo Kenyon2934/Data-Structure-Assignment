@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,16 @@ namespace Group_Data_Structure
 {
     class Program
     {
+        static string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
+        }
         public static int subMenu(int mainMenuPick)
         {
             int iMenu;
@@ -31,6 +41,7 @@ namespace Group_Data_Structure
             {
                 do //this loop will make sure that the user is actually inputting an int. 
                 {
+                    Console.WriteLine("\n".PadRight(50,'-') + "\n");
                     if (bFirstTime == false) //this will execute if the user fails to enter a valid entry the first time. 
                     {
                         Console.WriteLine("Please Enter a number between 1-7"); //instructional error message.
@@ -42,11 +53,12 @@ namespace Group_Data_Structure
                     Console.WriteLine("4. Delete from " + sMainMenu);
                     Console.WriteLine("5. Clear " + sMainMenu);
                     Console.WriteLine("6. Search " + sMainMenu);
-                    Console.WriteLine("7. Return to Main Menu");
+                    Console.WriteLine("7. Return to Main Menu\n");
                     sSubMenuPick = Console.ReadLine(); //here's where the user inputs option
                     bFirstTime = false; //this changes the bool to false so that if the loop happens, it will give the error message.
                 } while (Int32.TryParse(sSubMenuPick, out iMenu) == false);
                 iMenu = Convert.ToInt32(sSubMenuPick); //this will convert the input to an int. 
+                Console.WriteLine("\n");
             } while (iMenu < 1 || iMenu > 7);
             return iMenu;
         }
@@ -85,59 +97,48 @@ namespace Group_Data_Structure
                 if (iGenMenu == 1)
                 {
                     int iStaMenu;
-                    string sStaMenu;
-                    int iStaValue;
                     string sStaValue;
-                    string sStaKey;
 
                     do
                     {
                         bFirstTime = true;
                         iStaMenu = subMenu(iGenMenu);
 
-                        //adds item to stack
                         if (iStaMenu == 1)
                         {
                             Console.WriteLine("What do you want to add?\n");
-                            staSta.Push(Console.ReadLine());
-                            Console.WriteLine("Added Successful\n");
+
+                            staSta.Push(UppercaseFirst(Console.ReadLine()));
+                            Console.WriteLine("Added Successful");
                         }
 
-                            //add 2000 entries to the stack
                         else if (iStaMenu == 2)
                         {
                             staSta.Clear();
                             int counter = 1;
 
-                            Console.WriteLine("Stack cleared\n");
-
-                            while (staSta.Count() < 2000)
+                            while (staSta.Count() <= 2000)
                             {
                                 staSta.Push("New Entry" + counter);
                                 counter++;
                             }
 
-                            Console.WriteLine("2000 new entries have been added");
-
+                            Console.WriteLine("Stack cleared");
                         }
 
-                            //displays the stack
                         else if (iStaMenu == 3)
                         {
                             foreach (string item in staSta)
                             {
                                 Console.WriteLine(item);
                             }
-
-                            Console.WriteLine("\n");
                         }
 
-                        ///Delete specific item from stack
                         else if (iStaMenu == 4)
                         {
                             string input;
                             Console.Write("Which item do you want to delete?\n");
-                            input = Console.ReadLine();
+                            input = UppercaseFirst(Console.ReadLine());
                             Stack<string> tempStack = new Stack<string>(); //Temporary stack to move non-deleted items to
                             if (staSta.Contains(input))
                             {
@@ -165,19 +166,18 @@ namespace Group_Data_Structure
                             }
                         }
 
-                            //clears stack
+                        //clears stack
                         else if (iStaMenu == 5)
                         {
                             staSta.Clear();
 
                         }
 
-                            //searchs stack for specific item
                         else if (iStaMenu == 6)
                         {
                             string input;
                             Console.Write("Enter Search field: ");
-                            input = Console.ReadLine();
+                            input = UppercaseFirst(Console.ReadLine());
                             //Start the timer
                             sw.Start();
                             if (staSta.Contains(input))
@@ -200,11 +200,6 @@ namespace Group_Data_Structure
                 else if (iGenMenu == 2)
                 {
                     int iQMenu;
-                    string sQMenu;
-                    int iQValue;
-                    string sQValue;
-                    string sQKey;
-
                     do
                     {
                         bFirstTime = true;
@@ -212,14 +207,14 @@ namespace Group_Data_Structure
                         if (iQMenu == 1)
                         {
                             Console.WriteLine("Please enter a string");
-                            qItems.Enqueue(Console.ReadLine()); //Add item to the queue
+                            qItems.Enqueue(UppercaseFirst(Console.ReadLine())); //Add item to the queue
                         }
 
                         else if (iQMenu == 2)
                         {
                             qItems.Clear(); //Clear the queue
                             int counter = 1;
-                            while (qItems.Count() < 2000)
+                            while (qItems.Count() <= 2000)
                             {
                                 qItems.Enqueue("New Entry" + counter); //Add item to the queue
                                 counter++; //count how many entries have been made
@@ -239,7 +234,7 @@ namespace Group_Data_Structure
                         {
                             string input = "";
                             Console.Write("Which item do you want to delete?");
-                            input = Console.ReadLine();
+                            input = UppercaseFirst(Console.ReadLine());
                             Queue<string> tempQueue = new Queue<string>(); //Temporary queue to move non-deleted items to
                             if (qItems.Contains(input))
                             {
@@ -266,7 +261,6 @@ namespace Group_Data_Structure
                                 Console.WriteLine("Item not found"); //Report that the item to delete isn't in the queue
                             }
                         }
-
                         else if (iQMenu == 5)
                         {
                             //Clear the queue
@@ -278,7 +272,7 @@ namespace Group_Data_Structure
                         {
                             string input = "";
                             Console.Write("Enter Search field: ");
-                            input = Console.ReadLine();
+                            input = UppercaseFirst(Console.ReadLine());
                             //Start the timer
                             sw.Start();
                             if (qItems.Contains(input))
@@ -301,24 +295,15 @@ namespace Group_Data_Structure
                 else if (iGenMenu == 3)
                 {
                     int iDictMenu;
-                    string sDictMenu;
                     int iDictValue;
                     string sDictValue;
                     string sDictKey;
+                    string sYNAnswer;
 
                     do //this do loop will make sure that the dictionary code is run until the user chooses to exit
                     {
                         bFirstTime = true;
                         iDictMenu = subMenu(iGenMenu);
-                        Console.WriteLine();
-                        Console.WriteLine();//two blank lines.
-
-
-
-
-
-
-
 
                         if (iDictMenu == 1) //option 1 is selected: Adding one item to dictionary.
                         {
@@ -334,6 +319,14 @@ namespace Group_Data_Structure
                                 }
                             } while (Int32.TryParse(sDictValue, out iDictValue) == false);
                             iDictValue = Convert.ToInt32(sDictValue);  //converts from string to integer for dictionary value. 
+                            Console.Write("Do you wanna make sure the key is upper case? (Y/N): ");
+                            sYNAnswer = Console.ReadLine();
+                            sYNAnswer = sYNAnswer.Substring(0, 1);
+                            sYNAnswer = UppercaseFirst(sYNAnswer);
+                            if (sYNAnswer == "Y")
+                            {
+                                sDictKey = UppercaseFirst(sDictKey);
+                            }
                             dictDictionary.Add(sDictKey, iDictValue);  //add the item to the dictionary using the two obtained value
                             Console.WriteLine("Item successfully added!");
                         }
@@ -387,6 +380,19 @@ namespace Group_Data_Structure
                                 dictDictionary.Remove(sDictSearch);//will remove the item. 
                                 Console.WriteLine("\nRecord for " + sDictSearch + " successfully removed."); //confirmation to the user. 
                             }
+                            else if (dictDictionary.ContainsKey(UppercaseFirst(sDictSearch)) == true)// Check if the key exist with the first letter upper case
+                            {
+                                Console.Write("\nThe requested key does not exist, but we found this:\n\nItem found\n----------\n" + UppercaseFirst(sDictSearch).PadRight(25, ' ') + dictDictionary[UppercaseFirst(sDictSearch)]);
+                                Console.Write("\n\nDo you wanna delete this record? (Y/N) ");
+                                sYNAnswer = Console.ReadLine();
+                                sYNAnswer = sYNAnswer.Substring(0, 1);
+                                sYNAnswer = UppercaseFirst(sYNAnswer);
+                                if (sYNAnswer == "Y")
+                                {
+                                    dictDictionary.Remove(UppercaseFirst(sDictSearch));//will remove the item. 
+                                    Console.WriteLine("\nRecord for " + UppercaseFirst(sDictSearch) + " successfully removed."); //confirmation to the user. 
+                                }
+                            }
                             else if (dictDictionary.ContainsKey(sDictSearch) == false) //this is what executes if no match is found
                             {
                                 Console.WriteLine("The requested key does not exist!"); //message to user. 
@@ -415,6 +421,13 @@ namespace Group_Data_Structure
 
                                 sw.Reset();//reset the stopwatch
                             }
+                            else if (dictDictionary.ContainsKey(UppercaseFirst(sDictSearch)) == true)// Check if the key exist with the first letter upper case
+                            {
+                                sw.Stop();
+
+                                Console.Write("\nThe requested key does not exist, but we found this:\n" + "\nItem found\n----------\n" + UppercaseFirst(sDictSearch).PadRight(25, ' ') + dictDictionary[UppercaseFirst(sDictSearch)]); //display the found item with an upper case first letter
+                                Console.WriteLine("\nTime to find: " + sw.Elapsed); //display the time it took to find
+                            }
                             else
                             {
                                 Console.WriteLine("No results found."); //this informs the user that nothing was found
@@ -431,4 +444,3 @@ namespace Group_Data_Structure
         }
     }
 }
-
